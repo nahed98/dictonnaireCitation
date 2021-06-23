@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% form_theme formEditeur 'bootstrap_4_layout.html.twig'%}
+{% block body %}
+<h1>Création d'un utilisateur !</h1>
+{{ form_start(formEditeur)}}
+{{form_row(formEditeur.username,{'attr':{'placeholder':"username"}})}}
+{{form_row(formEditeur.email,{'attr':{'placeholder':"email"}})}}
+{{form_row(formEditeur.password,{'attr':{'placeholder':"mot de passe"}})}}
+{{form_row(formEditeur.confirm_password,{'attr':{'placeholder':"Confirmation du mot de passe"}})}}
+<button type="submit" >
+{% if editMode %}
+Enregistrer
+{% else %}
+Ajouter utilisateur
+{% endif %} 
+</button>
+{{form_end(formEditeur)}}
+
+{% endblock %}

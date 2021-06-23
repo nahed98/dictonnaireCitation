@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% form_theme formCitation 'bootstrap_4_layout.html.twig'%}
+{% block body %}
+<h1>Création d'un citation !</h1>
+{{ form_start(formCitation)}}
+
+{{form_row(formCitation.texte,{'attr':{'placeholder':"Texte de citation"}})}}
+{{form_row(formCitation.auteur,{'attr':{'placeholder':"Auteur de cette citation"}})}}
+<button type="submit" >
+{% if editMode %}
+Enregistrer
+{% else %}
+Ajouter citation
+{% endif %} 
+</button>
+{{form_end(formCitation)}}
+
+{% endblock %}

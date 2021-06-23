@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% form_theme formAuteur 'bootstrap_4_layout.html.twig'%}
+{% block body %}
+<h1>Création d'un auteur !</h1>
+{{ form_start(formAuteur)}}
+
+{{form_row(formAuteur.nom,{'attr':{'placeholder':"nom de l'auteur"}})}}
+{{form_row(formAuteur.prenom,{'attr':{'placeholder':"prénom de l'auteur"}})}}
+{{form_row(formAuteur.siecle,{'attr':{'placeholder':"siècle de l'auteur"}})}}
+<button type="submit">
+{% if editMode %}
+Enregistrer
+{% else %}
+Ajouter auteur
+{% endif %} 
+</button>
+{{form_end(formAuteur)}}
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<aside>
+<a style="margin-top: 2%" href="{{ path('show_message') }}"><button  type="button" >Voir les messages</button></a><BR><BR>
+<a style="margin-top: 2%" href="{{ path('show_liste') }}"><button  type="button" >Voir les utilisateurs (visiteur)</button></a>
+
+</aside>
+<section class="users">
+<h1>Liste des editeurs !</h1>
+<a style="margin-top: 2%" href="{{ path('user_new') }}"><button id="auteur" type="button" >Ajouter editeur</button></a>
+
+<table style="margin-top: 3%" class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Username</th>
+      <th scope="col">Email</th>
+      <th scope="col">Mot de passe </th>
+      <th scope="col"></th>
+ <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for user in users %}
+  {% if user.roles[0] in ['ROLE_EDITOR'] %}
+    <tr >
+      <td>{{user.username}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.password}}</td>
+   {% if is_granted('ROLE_ADMIN') %}
+       <td> <a  href="{{path('user_delete',{'id':user.getId()})}}"><img src="{{ asset('/images/delete.png') }}"></a></td>
+ <td><a  href="{{path('user_edit',{'id':user.getId()})}}"><img src="{{ asset('/images/edit.png') }}"></a></td>
+  {% endif %}
+    </tr>
+    {% endif %}
+         {% endfor %}
+  </tbody>
+</table>
+
+  </section>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<section class="auteurs">
+     {% if is_granted('ROLE_EDITOR') %}
+<a style="margin-top: 2%" href="{{ path('blog_createauteur') }}"><button id="auteur" type="button" >Ajouter auteur</button></a>
+{% endif %}
+<table style="margin-top: 3%" class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Prénom </th>
+      <th scope="col">Nom</th>
+      <th scope="col">Siècle</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+
+    </tr>
+  </thead>
+  <tbody>
+{% for auteur in auteurs %}
+    <tr >
+      <td >{{ auteur.getPrenom() }}</td>
+      <td>{{ auteur.getNom() }}</td>
+      <td> {{auteur.getSiecle()}}</td>
+     {% if is_granted('ROLE_EDITOR') %}
+       <td> <a   href="{{path('delet_auteur',{'id':auteur.getId()})}}"><img src="{{ asset('/images/delete.png') }}"></a></td>
+ <td><a  href="{{path('blogauteur_edit',{'id':auteur.getId()})}}"><img src="{{ asset('/images/edit.png') }}"></a></td>
+  {% endif %}
+    </tr>
+       {% endfor %}
+  </tbody>
+</table>
+
+  </section>
+{% endblock %}

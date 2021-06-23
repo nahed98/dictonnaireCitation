@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formMessage 'bootstrap_4_layout.html.twig'%}
+{% block body %}
+<aside >
+<h1>Contactez-nous</h1>
+{{ form_start(formMessage)}}
+
+{{form_row(formMessage.nom,{'attr':{'placeholder':"Entrez votre nom "}})}}
+{{form_row(formMessage.numero,{'attr':{'placeholder':"Votre numéro",'pattern':'[0-9]{8}'}})}}
+{{form_row(formMessage.email,{'attr':{'placeholder':"Votre email",'pattern':'[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'}})}}
+{{form_row(formMessage.texte,{'attr':{'placeholder':"Votre message"}})}}
+
+<button type="submit" >
+Envoyer
+</button>
+{{form_end(formMessage)}}
+
+</aside>
+<section class="citations">
+{% for citation in citations %}
+<div class="bubble"></div>
+<blockquote >{{ citation.texte}}
+ <figcaption>—{{ citation.auteur }}</figcaption>
+{% if is_granted('ROLE_EDITOR') %}
+ <a  href="{{path('delet_citation',{'id':citation.getId()})}}"><img src="{{ asset('/images/delete.png') }}"></a>
+ <a  href="{{path('blog_edit',{'id':citation.getId()})}}"><img src="{{ asset('/images/edit.png') }}"></a>
+ {% endif %}
+</blockquote>
+  {% endfor %}
+</section>
+
+{% endblock %}

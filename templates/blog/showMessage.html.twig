@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<section class="messages">
+<table style="margin-top: 3%" class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Nom </th>
+      <th scope="col">Numéro</th>
+      <th scope="col">Email</th>
+      <th scope="col">Texte</th>
+
+    </tr>
+  </thead>
+  <tbody>
+      {% for message in messages %}
+   <tr >
+      <td >{{ message.getNom() }}</td>
+      <td>{{message.getNumero() }}</td>
+      <td> {{message.getEmail()}}</td>
+      <td> {{message.getTexte()}}</td>
+    </tr>{% endfor %}
+  </tbody>
+</table>
+  </section>
+{% endblock %}

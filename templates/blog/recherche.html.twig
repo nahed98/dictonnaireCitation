@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<h1>Recherche!</h1>
+<form action="" method='get'>
+<input name='citation' type='text' placeholder='citation ou mot-clé' ><br><br>
+<select name='sel[]'>
+<option selected >choisir un auteur</option>
+{% for auteur in auteurs %}
+<option>{{ auteur }}</option>
+   {% endfor %}
+   </select>
+<input type="submit"  value='Chercher'>
+</form>
+{% if app.request.get("citation") is not null or app.request.get("sel") is not null  %}
+{% if app.request.get("citation") =='' and app.request.get("sel")[0] == 'choisir un auteur' %}
+<p style="color:red">il faut entre au moins un mot clé</p>
+{% else %}
+<table style="margin-top: 15%" class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Citation</th>
+      <th scope="col">Auteur</th>
+    </tr>
+  </thead>
+    <tbody>
+    {% for citation in citations %}
+    {% if app.request.get("citation") =="" %}
+            {% if app.request.get("sel")[0] == citation.auteur %}
+    <tr >
+      <td>{{citation.texte}}</td>
+      <td>{{citation.auteur }}</td>
+      </tr>
+            {% endif %}
+    {% else %}
+                   {% if app.request.get("sel")[0]  != 'choisir un auteur' %}
+                         {% if app.request.get("citation") in citation.texte and app.request.get("sel")[0]  == citation.auteur %}
+    <tr >
+      <td>{{citation.texte}}</td>
+      <td>{{citation.auteur }}</td>
+      </tr>
+                          {% endif %}
+                    {% else %}
+                         {% if app.request.get("citation") in citation.texte  %}
+    <tr >
+      <td>{{citation.texte}}</td>
+      <td>{{citation.auteur }}</td>
+      </tr>
+                         {% endif %}
+                    {% endif %}
+      {% endif %}
+
+  {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endif %}
+{% endblock %}
